@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Belajar Membaca Interaktif</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <header>
+    <h1>🌟 <span>Belajar Membaca Interaktif</span> 🌟</h1>
+    <p>Program Literasi Digital Lengkap untuk Anak SD</p>
+  </header>
+
+   <nav class="levels">
+  <button data-materi="1" class="active">
+    <span class="icon">🔤</span>
+    <span class="label">Materi 1</span><br>
+    <span class="title">Mengenal Huruf</span>
+  </button>
+  <button data-materi="2">
+    <span class="icon">🔈</span>
+    <span class="label">Materi 2</span><br>
+    <span class="title">Mengenal Bunyi</span>
+  </button>
+  <button data-materi="3">
+    <span class="icon">🧩</span>
+    <span class="label">Materi 3</span><br>
+    <span class="title">Suku Kata</span>
+  </button>
+  <button data-materi="4">
+    <span class="icon">📖</span>
+    <span class="label">Materi 4</span><br>
+    <span class="title">Kata Sederhana</span>
+  </button>
+  <button data-materi="5">
+    <span class="icon">📝</span>
+    <span class="label">Materi 5</span><br>
+    <span class="title">Kalimat Sederhana</span>
+  </button>
+  <button data-materi="6">
+    <span class="icon">❓</span>
+    <span class="label">Materi 6</span><br>
+    <span class="title">Tanya Jawab</span>
+  </button>
+</nav>
+
+
+<!-- 🌈 Progress Section -->
+<section class="progress-section sticky">
+  <div class="progress-header">
+    <span id="materi-info">Materi 1: Huruf & Suara</span>
+  </div>
+  <div class="progress-track">
+    <div id="progress-fill"></div>
+  </div>
+  <br/>
+  <!-- 🌟 Status Section -->
+<section class="status-panel">
+  <div class="stat-box">
+    <span class="icon">⭐</span>
+    <div>
+      <p>Skor</p>
+      <h3 id="score">0</h3>
+    </div>
+  </div>
+
+  <div class="stat-box">
+    <span class="icon">🔥</span>
+    <div>
+      <p>Berturut-turut</p>
+      <h3 id="streak">0</h3>
+    </div>
+  </div>
+
+  <div class="stat-box">
+    <span class="icon">🎙️</span>
+    <div>
+      <p>Pengucapan</p>
+      <h3 id="speak-count">0</h3>
+    </div>
+  </div>
+</section>
+
+</section>
+
+
+
+  <main id="content">
+    <!-- Konten materi akan diubah via JS -->
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
