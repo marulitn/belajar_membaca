@@ -416,10 +416,28 @@ function periksaJawaban(jawaban) {
 
 
 function dengarSuaraHuruf() {
-  const utter = new SpeechSynthesisUtterance(hurufSekarang);
+  const hurufTampil = document.getElementById("hurufUtama").textContent.trim();
+  if (!hurufTampil) return;
+
+  // Ucapan berbeda jika huruf besar / kecil
+  const utter = new SpeechSynthesisUtterance();
   utter.lang = "id-ID";
+
+  if (hurufTampil === hurufTampil.toUpperCase()) {
+    utter.text = `${hurufTampil} besar`;   // contoh: “A besar”
+  } else {
+    utter.text = `${hurufTampil} kecil`;   // contoh: “a kecil”
+  }
+
+  // Pilih suara Bahasa Indonesia jika tersedia
+  const voices = speechSynthesis.getVoices();
+  const indoVoice = voices.find(v => v.lang === "id-ID");
+  if (indoVoice) utter.voice = indoVoice;
+
+  speechSynthesis.cancel();
   speechSynthesis.speak(utter);
 }
+
 
 
 
@@ -900,12 +918,59 @@ function periksaJawabanBunyi(jawaban) {
 }
 
 function dengarSuaraBunyi() {
-  const utter = new SpeechSynthesisUtterance(bunyiSekarang);
+  // Ambil teks bunyi yang sedang tampil
+  const bunyi = bunyiSekarang?.toLowerCase();
+  if (!bunyi) return;
+
+  // Kamus bunyi alami — membaca seperti manusia, bukan ejaan huruf
+  const caraBaca = {
+    "ai": "ay",
+    "au": "aw",
+    "oi": "oy",
+    "ei": "ey",
+    "ia": "iya",
+    "ie": "iye",
+    "ue": "uwe",
+    "eu": "ewu",
+    "ui": "uwi",
+    "kh": "kh",
+    "ng": "ng",
+    "ny": "ny",
+    "sy": "sy",
+    // tambahan umum agar terdengar lebih alami
+    "as": "as",
+    "in": "in",
+    "om": "om",
+    "ur": "ur",
+    "es": "es",
+    "op": "op",
+    "ar": "ar",
+    "is": "is",
+    "uf": "uf",
+    "en": "en"
+  };
+
+  // Tentukan teks yang akan diucapkan
+  const teksUcap = caraBaca[bunyi] || bunyi;
+
+  // Buat dan atur ucapan
+  const utter = new SpeechSynthesisUtterance(teksUcap);
   utter.lang = "id-ID";
-  utter.rate = 0.8;  // sedikit lebih lambat
+  utter.rate = 0.9;
   utter.pitch = 1.0;
-  speechSynthesis.speak(utter);
+  utter.volume = 1;
+
+  // Gunakan suara Bahasa Indonesia jika ada
+  const voices = window.speechSynthesis.getVoices();
+  const indoVoice = voices.find(v => v.lang === "id-ID");
+  if (indoVoice) utter.voice = indoVoice;
+
+  window.speechSynthesis.cancel(); // hentikan ucapan sebelumnya
+  window.speechSynthesis.speak(utter);
+
+  console.log(`🔊 Membacakan bunyi: ${bunyi} → "${teksUcap}"`);
 }
+
 
 
 function getKategoriBunyi(b) {
@@ -1133,25 +1198,106 @@ function dengarSuaraKata() {
     return;
   }
 
-  const kata = kataEl.textContent.trim();
+  const kata = kataEl.textContent.trim().toLowerCase();
   if (!kata) return;
 
-  const utter = new SpeechSynthesisUtterance(kata);
-  utter.lang = "id-ID";          // Bahasa Indonesia
-  utter.rate = 0.9;              // Kecepatan bicara (lebih lambat biar jelas)
-  utter.pitch = 1;               // Nada normal
-  utter.volume = 1;              // Volume penuh
+  // 🗣️ Kamus pengucapan alami — semua kata di kataList sudah ditulis suku katanya
+  const caraBacaAlami = {
+    // === Suku Kata ===
+    "batu": "ba tu",
+    "meja": "me ja",
+    "tuku": "tu ku",
+    "keji": "ke ji",
+    "sapu": "sa pu",
+    "leca": "le ca",
+    "juri": "ju ri",
+    "dari": "da ri",
+    "kutu": "ku tu",
+    "kaki": "ka ki",
 
-  // Jika suara tersedia, pilih yang berbahasa Indonesia
+    // === Vokal Rangkap ===
+    "pandai": "pan dai",
+    "harimau": "ha ri mau",
+    "amboi": "am boi",
+    "pulau": "pu lau",
+    "kerbau": "ker bau",
+    "tupai": "tu pai",
+    "rantai": "ran tai",
+    "aduhai": "a du hai",
+    "melambai": "me lam bai",
+    "pakai": "pa kai",
+
+    // === Konsonan Rangkap ===
+    "khusus": "khu sus",
+    "nyamuk": "nya muk",
+    "syukur": "syu kur",
+    "telinga": "te li nga",
+    "syarat": "sya rat",
+    "ngantuk": "ngan tuk",
+    "bangun": "ba ngun",
+    "nyiram": "nyi ram",
+    "nyanyi": "nya nyi",
+    "banyak": "ba nyak",
+
+    // === KVK-KVK ===
+    "gembok": "gem bok",
+    "kulkas": "kul kas",
+    "wortel": "wor tel",
+    "bantal": "ban tal",
+    "mantel": "man tel",
+    "limbah": "lim bah",
+    "bantah": "ban tah",
+    "intel": "in tel",
+    "mentah": "men tah",
+    "lombok": "lom bok",
+
+    // === KV-KV-KV ===
+    "boneka": "bo ne ka",
+    "kelapa": "ke la pa",
+    "sepeda": "se pe da",
+    "gurita": "gu ri ta",
+    "mukena": "mu ke na",
+    "kereta": "ke re ta",
+    "menara": "me na ra",
+
+    // === KVK-KV ===
+    "garpu": "gar pu",
+    "kursi": "kur si",
+    "pintu": "pin tu",
+    "tempe": "tem pe",
+    "panda": "pan da",
+
+    // === KV-KVKK ===
+    "burung": "bu rung",
+    "kacang": "ka cang",
+    "terong": "te rong",
+    "kerang": "ke rang",
+    "bawang": "ba wang"
+  };
+
+  // Ambil cara baca alami jika ada
+  const teksUcap = caraBacaAlami[kata] || kata;
+
+  const utter = new SpeechSynthesisUtterance(teksUcap);
+  utter.lang = "id-ID";
+  utter.rate = 0.7;  // pelan agar terdengar jelas per suku kata
+  utter.pitch = 1.0;
+  utter.volume = 1;
+
+  // Gunakan suara Bahasa Indonesia jika tersedia
   const voices = window.speechSynthesis.getVoices();
   const indoVoice = voices.find(v => v.lang === "id-ID");
   if (indoVoice) utter.voice = indoVoice;
 
-  window.speechSynthesis.cancel(); // hentikan bicara sebelumnya
+  window.speechSynthesis.cancel();
   window.speechSynthesis.speak(utter);
 
-  console.log(`🔊 Mengucapkan kata: ${kata}`);
+  console.log(`🔊 Membacakan kata: ${kata} → "${teksUcap}"`);
 }
+
+
+
+
 
 // ==================== MATERI 4: KALIMAT SEDERHANA DENGAN EMOJI ====================
 
