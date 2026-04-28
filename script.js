@@ -1623,10 +1623,10 @@ function dengarSuaraKalimatPanjang() {
 const ceritaList = [
   {
     emoji: "🐶🍖",
-    teks: "Anjing bernama Budi sedang makan tulang di halaman. Dia sangat senang karena tulangnya besar dan lezat.",
+    teks: "Anjing bernama Jojo sedang makan tulang di halaman. Dia sangat senang karena tulangnya besar dan lezat.",
     pertanyaan: "Siapa nama anjing dalam cerita?",
-    pilihan: ["Budi", "Mimi", "Dodi", "Cici"],
-    jawaban: "Budi"
+    pilihan: ["Jojo", "Mimi", "Dodi", "Cici"],
+    jawaban: "Jojo"
   },
   {
     emoji: "🐱🥛☀️",
@@ -1671,7 +1671,7 @@ function mulaiMateri6() {
       <!-- Kotak cerita putih -->
       <div class="cerita-box">
         <div class="emoji-cerita" id="emojiCerita">🐶🍖</div>
-        <p id="teksCerita" class="teks-cerita">Anjing bernama Budi sedang makan tulang di halaman. Dia sangat senang karena tulangnya besar dan lezat.</p>
+        <p id="teksCerita" class="teks-cerita">Anjing bernama Jojo sedang makan tulang di halaman. Dia sangat senang karena tulangnya besar dan lezat.</p>
       </div>
 
       <!-- Kotak pertanyaan & pilihan — hanya outline -->
