@@ -934,7 +934,7 @@ function dengarSuaraBunyi() {
     "eu": "ewu",
     "ui": "uwi",
     "kh": "kh",
-    "ng": "ng",
+    "ng": "eng",
     "ny": "ny",
     "sy": "sy",
     // tambahan umum agar terdengar lebih alami
