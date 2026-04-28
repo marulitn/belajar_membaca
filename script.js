@@ -947,7 +947,8 @@ function dengarSuaraBunyi() {
     "ar": "ar",
     "is": "is",
     "uf": "uf",
-    "en": "en"
+    "en": "en",
+	"ke": "keu"
   };
 
   // Tentukan teks yang akan diucapkan
